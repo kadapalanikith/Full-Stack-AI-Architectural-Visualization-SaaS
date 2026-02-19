@@ -1,8 +1,10 @@
 import type { Route } from "./+types/home";
 import Navbar from "../../components/Navbar";
 import { ArrowRight, Clock, Layers, ArrowUpRight } from "lucide-react";
+import Upload from "../../components/Upload";
 
 import Button from "../../components/ui/Button";
+import { useNavigate } from "react-router";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -12,6 +14,13 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const navigate = useNavigate()
+
+  const handleUploadComplete = async (base64Image: string) => {
+    const newId = Date.now().toString();
+    navigate(`/visualizer/${newId}`, { state: { image: base64Image } })
+    return true;
+  }
 
   return (
     <div className="home">
@@ -25,7 +34,7 @@ export default function Home() {
           </div>
           <p>Introducing roomyfi 2.0</p>
         </div>
-        <h1>Bulid beautiful sapces at the Speed of through with Roomify</h1>
+        <h1>Build beautiful spaces at the Speed of thought with Roomify</h1>
         <p className="subtitle">Roomify is the AI-powered interior design platform that helps you create stunning, personalized spaces in minutes. From room layouts to furniture selection, we bring your vision to life with intelligent design suggestions and seamless collaboration tools.</p>
         <div className="actions">
           <a href="#upload" className="cta">Start Building<ArrowRight className="icon" /></a>
@@ -38,14 +47,14 @@ export default function Home() {
               <div className="upload-icon">
                 <Layers className="icon" />
               </div>
-              <h3>Uplaod Your Floor plan</h3>
+              <h3>Upload Your Floor plan</h3>
               <p>Support JPG,PNG, formats up to 10mb</p>
             </div>
-            <p>Upload images</p>
+            <Upload onComplete={handleUploadComplete} />
           </div>
         </div>
       </section>
-      <section className="projests">
+      <section className="projects">
         <div className="section-inner">
           <div className="section-head">
             <div className="copy">
