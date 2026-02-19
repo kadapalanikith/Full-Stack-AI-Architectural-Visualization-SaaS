@@ -16,10 +16,14 @@ export function meta({ }: Route.MetaArgs) {
 export default function Home() {
   const navigate = useNavigate()
 
-  const handleUploadComplete = async (base64Image: string) => {
+  const handleUploadComplete = (base64Image: string) => {
     const newId = Date.now().toString();
-    navigate(`/visualizer/${newId}`, { state: { image: base64Image } })
-    return true;
+    try {
+      sessionStorage.setItem(`roomify-image-${newId}`, base64Image);
+    } catch (error) {
+      console.error("Failed to save image", error);
+    }
+    navigate(`/visualizer/${newId}`);
   }
 
   return (
@@ -48,7 +52,7 @@ export default function Home() {
                 <Layers className="icon" />
               </div>
               <h3>Upload Your Floor plan</h3>
-              <p>Support JPG,PNG, formats up to 10mb</p>
+              <p>Support JPG, PNG formats up to 50 MB</p>
             </div>
             <Upload onComplete={handleUploadComplete} />
           </div>
