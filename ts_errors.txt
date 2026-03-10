@@ -1,9 +1,0 @@
-app/routes/home.tsx(101,15): error TS1005: '}' expected.
-app/routes/home.tsx(101,16): error TS1382: Unexpected token. Did you mean `{'>'}` or `&gt;`?
-app/routes/home.tsx(126,14): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-lib/puter.hosting.ts(22,78): error TS1005: ',' expected.
-lib/puter.hosting.ts(22,132): error TS1005: ';' expected.
-lib/puter.hosting.ts(43,49): error TS1005: ',' expected.
-lib/puter.hosting.ts(47,5): error TS1472: 'catch' or 'finally' expected.
-lib/puter.hosting.ts(47,11): error TS1005: 'try' expected.
-lib/puter.hosting.ts(52,1): error TS1128: Declaration or statement expected.

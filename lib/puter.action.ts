@@ -19,12 +19,12 @@ export const createProject = async ({ item }: CreateProjectParams): Promise<Desi
     const projectId = item.id;
     const hosting = await getOrCreateHostingConfig();
 
-    const hostedSource = projectId ?
+    const hostedSource = projectId && hosting ?
         await uploadImageToHosting({
             hosting, url: item.sourceImage, projectId, label: 'source',
         }) : null;
 
-    const hostedRender = projectId && item.renderedImage ?
+    const hostedRender = projectId && hosting && item.renderedImage ?
         await uploadImageToHosting({
             hosting, url: item.renderedImage, projectId, label: 'rendered',
         }) : null;
