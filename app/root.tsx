@@ -8,7 +8,7 @@ import {
 } from "react-router";
 
 import { useState, useEffect } from "react";
-import { getCurrentUser,signIn as puterSignIn,signOut as puterSignOut } from "../lib/puter.action";
+import { getCurrentUser, signIn as puterSignIn, signOut as puterSignOut } from "../lib/puter.action";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -46,7 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 const DEFAULT_AUTH_STATE: AuthState = {
   isSignedIn: false,
-  username: null,
+  userName: null,
   userId: null,
 }
 
@@ -59,7 +59,7 @@ export default function App() {
 
       setAuthState({
         isSignedIn: !!user,
-        username: user?.username || null,
+        userName: user?.username || null,
         userId: user?.uuid || null,
       });
       return !!user;
@@ -87,7 +87,7 @@ export default function App() {
     <main className="min-h-screen bg-background text-foreground relative z-10">
       <Outlet
         context={{
-          ...authState,refreshAuth,signIn,signOut
+          ...authState, refreshAuth, signIn, signOut
         }}
       />
     </main>
