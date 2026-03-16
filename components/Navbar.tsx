@@ -1,66 +1,72 @@
-import React from 'react'
-import { Box } from 'lucide-react'
-import Button from './ui/Button';
-import { useOutletContext } from 'react-router';
+import {Box} from "lucide-react";
+import Button from "./ui/Button";
+import {useOutletContext} from "react-router";
 
 const Navbar = () => {
-  const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>();
+    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
 
-  const handleAuthClick = async () => {
-    if (isSignedIn) {
-      try {
-        await signOut();
-      } catch (error) {
-        console.log(`Puter signed out error : ${error}`);
-      }
-    }
+    const handleAuthClick = async () => {
+        if(isSignedIn) {
+            try {
+                await signOut();
+            } catch (e) {
+                console.error(`Puter sign out failed: ${e}`);
+            }
 
-    try {
-      await signIn();
-    } catch (error) {
-      console.log(`Puter signed in error : ${error}`);
-    }
-  };
+            return;
+        }
 
-  return (
-    <header className='navbar'>
-      <nav className='inner'>
-        <div className='left'>
-          <div className='brand'>
-            <Box className="logo" />
-            <span className='name'>Roomify</span>
-          </div>
-          <div>
-            <ul className='links'>
-              <a href="#">Product</a>
-              <a href="#">Pricing</a>
-              <a href="#">Community</a>
-              <a href="#">Enterprise</a>
-            </ul>
-          </div>
-        </div>
-        <div className='actions '>
-          {isSignedIn ? (
-            <>
-              <span>{userName ? `Hi, ${userName} ` : 'Sign In'}</span>
-              <Button size="sm" variant="secondary" onClick={handleAuthClick}>
-                Logout
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button className='login' size='sm' variant='ghost' onClick={() => signIn()}>
-                Login
-              </Button>
-              <a href="#upload" className='cta'>Get Started</a>
-            </>
-          )}
+        try {
+            await signIn();
+        } catch (e) {
+            console.error(`Puter sign in failed: ${e}`);
+        }
+    };
 
-        </div>
-      </nav>
-    </header>
-  )
+    return (
+        <header className="navbar">
+            <nav className="inner">
+                <div className="left">
+                    <div className="brand">
+                        <Box  className="logo" />
+
+                        <span className="name">
+                            Roomify
+                        </span>
+                    </div>
+
+                    <ul className="links">
+                        <a href="#">Product</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">Community</a>
+                        <a href="#">Enterprise</a>
+                    </ul>
+                </div>
+
+                <div className="actions">
+                    {isSignedIn ? (
+                        <>
+                            <span className="greeting">
+                                {userName ? `Hi, ${userName}` : 'Signed in'}
+                            </span>
+
+                            <Button size="sm" onClick={handleAuthClick} className="btn">
+                                Log Out
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button onClick={handleAuthClick} size="sm" variant="ghost">
+                                Log In
+                            </Button>
+
+                            <a href="#upload" className="cta">Get Started</a>
+                        </>
+                    )}
+                </div>
+            </nav>
+        </header>
+    )
 }
 
 export default Navbar
-
