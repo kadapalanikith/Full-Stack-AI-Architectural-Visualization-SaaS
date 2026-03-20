@@ -48,6 +48,7 @@ type RenderCompletePayload = {
 type VisualizerLocationState = {
     initialImage?: string;
     initialRendered?: string | null;
+    initialRender?: string | null;
     ownerId?: string | null;
     name?: string | null;
     sharedBy?: string | null;

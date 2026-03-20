@@ -1,8 +1,56 @@
+# ── OS generated ──────────────────────────
 .DS_Store
-.env
-/node_modules/
-.env.local
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
 
-# React Router
-/.react-router/
+# ── Environment / secrets ─────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# ── Dependencies ──────────────────────────
+/node_modules/
+.pnp
+.pnp.js
+
+# ── Build outputs ─────────────────────────
 /build/
+/dist/
+
+# ── React Router / Vite ───────────────────
+/.react-router/
+*.local
+
+# ── TypeScript ────────────────────────────
+*.d.ts.map
+
+# ── Logs ──────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+*.log
+
+# ── Editor & IDE ──────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Testing ───────────────────────────────
+/coverage/
+
+# ── Misc ──────────────────────────────────
+ts_errors.txt

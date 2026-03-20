@@ -1,72 +1,82 @@
-import {Box} from "lucide-react";
-import Button from "./ui/Button";
-import {useOutletContext} from "react-router";
+import { Box, Menu, X } from "lucide-react";
+import { useOutletContext } from "react-router";
+import { useState } from "react";
 
 const Navbar = () => {
-    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
+    const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>();
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleAuthClick = async () => {
-        if(isSignedIn) {
-            try {
-                await signOut();
-            } catch (e) {
-                console.error(`Puter sign out failed: ${e}`);
-            }
-
+        if (isSignedIn) {
+            try { await signOut(); } catch (e) { console.error(`Puter sign out failed: ${e}`); }
             return;
         }
-
-        try {
-            await signIn();
-        } catch (e) {
-            console.error(`Puter sign in failed: ${e}`);
-        }
+        try { await signIn(); } catch (e) { console.error(`Puter sign in failed: ${e}`); }
     };
 
-    return (
-        <header className="navbar">
-            <nav className="inner">
-                <div className="left">
-                    <div className="brand">
-                        <Box  className="logo" />
+    const closeMobile = () => setMobileOpen(false);
 
-                        <span className="name">
-                            Roomify
-                        </span>
+    return (
+        <>
+            <header className="navbar">
+                <nav className="inner">
+                    <div className="left">
+                        <a href="/" className="brand" aria-label="Roomify Home">
+                            <Box className="logo" />
+                            <span className="name">Roomify</span>
+                        </a>
+
+                        <ul className="links" role="list">
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#how-it-works">How it Works</a></li>
+                            <li><a href="#projects">Projects</a></li>
+                        </ul>
                     </div>
 
-                    <ul className="links">
-                        <a href="#">Product</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">Community</a>
-                        <a href="#">Enterprise</a>
-                    </ul>
-                </div>
+                    <div className="right">
+                        {isSignedIn ? (
+                            <>
+                                <span className="greeting">
+                                    {userName ? `Hi, ${userName}` : "Signed in"}
+                                </span>
+                                <button className="login-btn" onClick={handleAuthClick} aria-label="Sign out">
+                                    Log Out
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button className="login-btn" onClick={handleAuthClick} aria-label="Sign in">
+                                    Log In
+                                </button>
+                                <a href="#upload" className="cta-btn" aria-label="Get started">
+                                    Get Started
+                                </a>
+                            </>
+                        )}
 
-                <div className="actions">
-                    {isSignedIn ? (
-                        <>
-                            <span className="greeting">
-                                {userName ? `Hi, ${userName}` : 'Signed in'}
-                            </span>
+                        <button
+                            className="mobile-menu-btn"
+                            onClick={() => setMobileOpen((v) => !v)}
+                            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                            aria-expanded={mobileOpen}
+                        >
+                            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+                        </button>
+                    </div>
+                </nav>
+            </header>
 
-                            <Button size="sm" onClick={handleAuthClick} className="btn">
-                                Log Out
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <Button onClick={handleAuthClick} size="sm" variant="ghost">
-                                Log In
-                            </Button>
+            {/* Mobile navigation dropdown */}
+            <div className={`mobile-nav${mobileOpen ? " open" : ""}`} role="navigation" aria-label="Mobile navigation">
+                <a href="#features" onClick={closeMobile}>Features</a>
+                <a href="#how-it-works" onClick={closeMobile}>How it Works</a>
+                <a href="#projects" onClick={closeMobile}>Projects</a>
+                <a href="#upload" onClick={closeMobile} style={{ color: "#f97316", fontWeight: 700 }}>
+                    Get Started →
+                </a>
+            </div>
+        </>
+    );
+};
 
-                            <a href="#upload" className="cta">Get Started</a>
-                        </>
-                    )}
-                </div>
-            </nav>
-        </header>
-    )
-}
-
-export default Navbar
+export default Navbar;
