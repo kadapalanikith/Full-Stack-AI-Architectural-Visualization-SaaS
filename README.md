@@ -11,7 +11,6 @@ Transform 2D floor plans into photorealistic 3D renders in under 30 seconds — 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 
-![Roomify Banner](https://full-stack-ai-architectural-visuali.vercel.app/)
 
 </div>
 
